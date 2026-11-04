@@ -24,3 +24,22 @@ create table if not exists parking_audit (
 
 alter table parking_sessions enable row level security;
 alter table parking_audit enable row level security;
+
+drop policy if exists sessions_select on parking_sessions;
+drop policy if exists sessions_insert on parking_sessions;
+drop policy if exists sessions_update on parking_sessions;
+drop policy if exists audit_insert on parking_audit;
+drop policy if exists audit_select_admin on parking_audit;
+
+create policy sessions_select on parking_sessions for select using (
+  auth.uid() is not null and (final_exit_at is null or (auth.jwt() ->> 'email') = 'admin@cabred.app')
+);
+create policy sessions_insert on parking_sessions for insert with check (auth.uid() is not null);
+create policy sessions_update on parking_sessions for update using (auth.uid() is not null) with check (auth.uid() is not null);
+create policy audit_insert on parking_audit for insert with check (auth.uid() is not null);
+create policy audit_select_admin on parking_audit for select using ((auth.jwt() ->> 'email') = 'admin@cabred.app');
+
+do $$ begin
+  alter publication supabase_realtime add table parking_sessions;
+exception when duplicate_object then null;
+end $$;

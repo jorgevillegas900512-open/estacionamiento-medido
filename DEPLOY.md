@@ -1,10 +1,11 @@
-# Publicación gratuita
+# Publicación gratuita sin Render
 
-1. Crear un proyecto gratuito en Supabase.
-2. Ejecutar `supabase-schema.sql` en el SQL Editor.
-3. Crear un repositorio privado en GitHub y subir esta carpeta.
-4. En Render elegir **New Web Service**, conectar el repositorio y seleccionar el plan Free.
-5. Agregar las variables `OPERATOR_PASSWORD`, `ADMIN_PASSWORD`, `SUPABASE_URL` y `SUPABASE_SERVICE_ROLE_KEY`.
-6. Usar siempre la URL HTTPS de Render.
+1. En Supabase, volver a ejecutar `supabase-schema.sql` para aplicar las políticas de seguridad.
+2. En Supabase > Authentication > Users, crear dos usuarios con email y contraseña:
+   - `operador@cabred.app`
+   - `admin@cabred.app`
+3. En `supabase-config.js`, reemplazar `PEGAR_PROJECT_URL` y `PEGAR_ANON_KEY` con el Project URL y la clave pública `anon`.
+4. En GitHub abrir Settings > Pages, elegir **Deploy from a branch**, branch `main`, carpeta `/ (root)` y guardar.
+5. La app quedará disponible en `https://jorgevillegas900512-open.github.io/estacionamiento-medido/`.
 
-No publicar nunca la `SUPABASE_SERVICE_ROLE_KEY` en el navegador ni dentro de `index.html`.
+La clave `anon` puede estar en el navegador porque las tablas están protegidas por RLS. Nunca publicar la `service_role key`.
