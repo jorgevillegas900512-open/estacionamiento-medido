@@ -35,7 +35,7 @@ create policy sessions_select on parking_sessions for select using (
   auth.uid() is not null and (final_exit_at is null or (auth.jwt() ->> 'email') = 'admin@cabred.app')
 );
 create policy sessions_insert on parking_sessions for insert with check (auth.uid() is not null);
-create policy sessions_update on parking_sessions for update using (auth.uid() is not null) with check (auth.uid() is not null);
+create policy sessions_update on parking_sessions for update using (auth.uid() is not null and final_exit_at is null) with check (auth.uid() is not null);
 create policy audit_insert on parking_audit for insert with check (auth.uid() is not null);
 create policy audit_select_admin on parking_audit for select using ((auth.jwt() ->> 'email') = 'admin@cabred.app');
 
