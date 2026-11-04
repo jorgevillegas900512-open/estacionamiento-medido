@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#102a43" />
+  <title>Estacionamiento Medido</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="loginScreen" class="login-screen"><div class="login-box"><div class="brand-logo"><img src="logo-cooperadora.png" alt="Cooperadora Hospital Cabred"></div><p class="kicker">COOPERADORA HOSPITAL CABRED</p><h1>Estacionamiento Medido</h1><p>Ingresá tus datos para comenzar a operar.</p><form id="loginForm"><label>Nombre del operador<input id="loginName" required autocomplete="name" placeholder="Ej.: Juan Pérez"></label><label>Contraseña<input id="loginPassword" required type="password" autocomplete="current-password"></label><button class="primary" type="submit">Ingresar</button><p id="loginMessage" class="message error"></p></form></div></div>
+  <header class="topbar"><div class="topbar-brand"><img src="logo-cooperadora.png" alt="Cooperadora Hospital Cabred"><div><p class="kicker">COOPERADORA HOSPITAL CABRED</p><h1>Estacionamiento Medido</h1></div></div><div class="rate"><span>Tarifa diaria</span><strong>$50.000</strong></div></header>
+  <main class="layout">
+    <section class="hero"><div><p class="kicker">OPERACIÓN SIMPLE</p><h2>Entradas y salidas por patente</h2><p>Registrá el vehículo una vez y autorizá salidas temporales sin cobrar nuevamente.</p></div><div class="hero-mark">P</div></section>
+    <section class="stats"><div><span>Adentro ahora</span><strong id="insideCount">0</strong></div><div><span>Fuera temporalmente</span><strong id="temporaryCount">0</strong></div><div><span>Recaudación registrada</span><strong id="revenue">$0</strong></div></section>
+    <section class="columns">
+      <div class="card action-card"><div class="section-title"><div><p class="kicker">MOVIMIENTO</p><h2>Registrar entrada</h2></div><span class="icon">↗</span></div>
+        <form id="entryForm"><label>Patente<input id="entryPlate" required maxlength="10" placeholder="AA 123 AA" autocomplete="off" /></label><label>DNI del chofer<input id="entryDni" required inputmode="numeric" maxlength="12" placeholder="Sin puntos" autocomplete="off" /></label><button class="primary" type="submit">Dar entrada</button></form><p id="entryMessage" class="message"></p>
+      </div>
+      <div class="card action-card"><div class="section-title"><div><p class="kicker">SALIDA TEMPORAL</p><h2>Autorizar salida</h2></div><span class="icon yellow">◷</span></div>
+        <form id="temporaryForm"><label>Patente<input id="temporaryPlate" required maxlength="10" placeholder="AA 123 AA" autocomplete="off" /></label><label>DNI del chofer<input id="temporaryDni" required inputmode="numeric" maxlength="12" placeholder="Sin puntos" autocomplete="off" /></label><label>Tiempo autorizado<select id="temporaryMinutes"><option value="30">30 minutos</option><option value="60">1 hora</option><option value="120">2 horas</option><option value="240">4 horas</option><option value="480">8 horas</option></select></label><button class="secondary" type="submit">Autorizar salida temporal</button></form><p id="temporaryMessage" class="message"></p>
+      </div>
+    </section>
+    <section class="card lookup"><div class="section-title"><div><p class="kicker">CONSULTA RÁPIDA</p><h2>Dar salida definitiva o registrar reingreso</h2></div><span class="icon red">⌕</span></div>
+      <div class="lookup-row"><input id="lookupPlate" maxlength="10" placeholder="Ingresá una patente" autocomplete="off" /><input id="lookupDni" inputmode="numeric" maxlength="12" placeholder="DNI para salida" autocomplete="off" /><button id="lookupButton" class="dark">Buscar vehículo</button></div><div id="vehicleResult" class="result empty">Buscá una patente para ver su estado.</div>
+    </section>
+    <section class="card table-card"><div class="section-title"><div><p class="kicker">REGISTRO</p><h2>Vehículos en la playa</h2></div><span id="recordCount" class="count">0</span></div><div class="table-wrap"><table><thead><tr><th>Patente</th><th>Entrada</th><th>Estado</th><th>Importe actual</th></tr></thead><tbody id="vehicleTable"></tbody></table><p id="tableEmpty" class="empty-table">No hay vehículos registrados.</p></div></section>
+    <section id="adminPanel" class="card table-card admin-panel" hidden><div class="section-title"><div><p class="kicker">ADMINISTRACIÓN</p><h2>Auditoría y recaudación</h2></div></div><div class="admin-actions"><button id="auditButton" class="dark">Cargar auditoría</button><button id="exportButton" class="secondary">Descargar respaldo</button></div><div id="auditList" class="audit-list"></div></section>
+  <p class="footer-note">Conectado al registro central · Los cambios se sincronizan entre todos los puestos. Tarifa: $50.000 cada 24 horas, mínimo un día.</p>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
